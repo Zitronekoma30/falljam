@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/FallJam.mp3-f42c2fd95b707c24a9541caf6d79b488.mp3str"
+
+[deps]
+
+source_file="res://Audio/FallJam.mp3"
+dest_files=[ "res://.import/FallJam.mp3-f42c2fd95b707c24a9541caf6d79b488.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

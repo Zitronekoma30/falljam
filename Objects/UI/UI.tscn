@@ -30,7 +30,6 @@ columns = 5
 [node name="InventorySlot2" parent="Inventory" instance=ExtResource( 2 )]
 margin_left = 34.0
 margin_right = 64.0
-selected = true
 
 [node name="InventorySlot3" parent="Inventory" instance=ExtResource( 2 )]
 margin_left = 68.0

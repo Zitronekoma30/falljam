@@ -19,10 +19,6 @@ region = Rect2( 32, 0, 16, 16 )
 atlas = ExtResource( 1 )
 region = Rect2( 48, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 1 )
-region = Rect2( 16, 16, 16, 16 )
-
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
 region = Rect2( 32, 16, 16, 16 )
@@ -59,16 +55,15 @@ region = Rect2( 96, 16, 16, 16 )
 atlas = ExtResource( 1 )
 region = Rect2( 112, 16, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 16, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=13]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "idle",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 16 ) ],
-"loop": true,
-"name": "rise",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 15 ) ],
@@ -85,17 +80,25 @@ animations = [ {
 "loop": true,
 "name": "attack",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 16 ) ],
+"loop": true,
+"name": "rise",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 6, 8 )
 
 [sub_resource type="RectangleShape2D" id=17]
-extents = Vector2( 7.5, 8 )
+extents = Vector2( 7.25, 8 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 script = ExtResource( 2 )
+
+[node name="ItemSpawnPosition" type="Position2D" parent="."]
+position = Vector2( 17, -6 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 13 )
@@ -115,7 +118,6 @@ collision_layer = 16
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemArea"]
-position = Vector2( -0.5, 0 )
 shape = SubResource( 17 )
 
 [connection signal="body_entered" from="ItemArea" to="." method="_on_ItemArea_body_entered"]

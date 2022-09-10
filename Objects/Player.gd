@@ -6,11 +6,12 @@ var grounded: bool = false
 
 export var speed = 2500
 export var gravity = 500
-export var jump_force = 9000
+export var jump_force = 12000
 export var grid_size := 16
 
 onready var anim = $AnimatedSprite
 onready var floorcast = $FloorCast
+onready var item_spawn_pos = $ItemSpawnPosition
 
 enum State{
 	Idle,
@@ -51,9 +52,11 @@ func animate():
 	if velocity.x > 0: 
 		anim.flip_h = false
 		anim.play("walk")
+		item_spawn_pos.position = Vector2(17, -6)
 	elif velocity.x < 0:
 		anim.flip_h = true
 		anim.play("walk")
+		item_spawn_pos.position = Vector2(-17, -6)	
 	elif velocity.x == 0:
 		anim.play("idle")
 	if !grounded:

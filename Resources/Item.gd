@@ -1,7 +1,8 @@
 extends Resource
+class_name Item
 
 var name: String
-var sprite: StreamTexture
+var sprite: Texture
 var value: int
 
 var stackable: bool = false

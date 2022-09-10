@@ -18,5 +18,8 @@ func set_selected(new: bool):
 	selected = new
 	
 func set_item(_item):
-	item_tex.texture = _item.sprite
 	item = _item
+	if _item == null:
+		item_tex.texture = null
+		return
+	item_tex.texture = _item.sprite

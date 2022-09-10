@@ -1,5 +1,7 @@
 extends Control
 
+var item_scene = preload("res://Objects/Item.tscn")
+
 onready var ui_inv = $Inventory
 onready var ui_slots = ui_inv.get_children()
 onready var cursor = $Cursor
@@ -15,6 +17,7 @@ var inventory: Array = []
 var selected = 0
 
 func _ready():
+	ui_slots[selected].set_selected(true)
 	for i in range(inv_size):
 		inventory.append(null)
 	player.connect("got_item", self, "add_item")
@@ -30,6 +33,17 @@ func _process(delta):
 		selected -= 1
 		if selected < 0: selected = inv_size-1
 		ui_slots[selected].set_selected(true)
+		
+	var current_slot = inventory[selected]
+	if Input.is_action_just_pressed("drop"):
+		if current_slot != null:
+			var new_item = item_scene.instance()
+			new_item.set_item(current_slot.name)
+			get_tree().get_root().add_child(new_item)
+			new_item.global_position = player.item_spawn_pos.global_position
+			new_item.anim.play_backwards("pickup")
+			inventory[selected] = null
+			ui_slots[selected].set_item(null)
 	position_cursor()
 
 func position_cursor():
