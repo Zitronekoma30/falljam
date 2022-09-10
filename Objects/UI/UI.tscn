@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Objects/UI/UI.gd" type="Script" id=1]
+[ext_resource path="res://Objects/UI/InventorySlot.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Cursor.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 8 )
+
+[node name="UI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 512, 300 )
+rect_pivot_offset = Vector2( -269, -61 )
+script = ExtResource( 1 )
+
+[node name="Inventory" type="GridContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -83.0
+margin_top = -42.0
+margin_right = 83.0
+margin_bottom = -12.0
+columns = 5
+
+[node name="InventorySlot" parent="Inventory" instance=ExtResource( 2 )]
+
+[node name="InventorySlot2" parent="Inventory" instance=ExtResource( 2 )]
+margin_left = 34.0
+margin_right = 64.0
+selected = true
+
+[node name="InventorySlot3" parent="Inventory" instance=ExtResource( 2 )]
+margin_left = 68.0
+margin_right = 98.0
+
+[node name="InventorySlot4" parent="Inventory" instance=ExtResource( 2 )]
+margin_left = 102.0
+margin_right = 132.0
+
+[node name="InventorySlot5" parent="Inventory" instance=ExtResource( 2 )]
+margin_left = 136.0
+margin_right = 166.0
+
+[node name="Cursor" type="Area2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Cursor"]
+position = Vector2( 8, 8 )
+texture = ExtResource( 3 )
+
+[node name="Collider" type="CollisionShape2D" parent="Cursor"]
+position = Vector2( 8, 8 )
+shape = SubResource( 1 )

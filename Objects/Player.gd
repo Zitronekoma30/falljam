@@ -11,7 +11,6 @@ export var grid_size := 16
 
 onready var anim = $AnimatedSprite
 onready var floorcast = $FloorCast
-onready var cursor = $Cursor
 
 enum State{
 	Idle,
@@ -20,13 +19,14 @@ enum State{
 
 var state = State.Idle
 
+signal got_item
+
 func _ready():
 	pass
 	
 func _process(delta):
 	move(delta)
 	animate()
-	position_cursor()
 	
 func move(delta):
 	velocity.x = 0
@@ -62,10 +62,7 @@ func animate():
 
 func land():
 	pass
-	
-func position_cursor():
-	var mouse_pos = get_viewport().get_mouse_position()
-	var pos = Vector2(floor(mouse_pos.x / grid_size)*grid_size, floor(mouse_pos.y / grid_size)*grid_size)
-	cursor.global_position = pos
-	
-	
+
+func _on_ItemArea_body_entered(body):
+	if body.is_in_group("items"): 
+		emit_signal("got_item", body)
