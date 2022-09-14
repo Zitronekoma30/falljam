@@ -12,6 +12,7 @@ export var grid_size := 16
 onready var anim = $AnimatedSprite
 onready var floorcast = $FloorCast
 onready var item_spawn_pos = $ItemSpawnPosition
+onready var sfx = $SFX
 
 enum State{
 	Idle,
@@ -42,6 +43,7 @@ func move(delta):
 			land()
 		grounded = true
 		if Input.is_action_just_pressed("jump"):
+			sfx.jump.play()
 			velocity.y = 0
 			velocity.y -= jump_force * delta
 	
@@ -64,7 +66,7 @@ func animate():
 		else: anim.play("rise")
 
 func land():
-	pass
+	sfx.land.play()
 
 func _on_ItemArea_body_entered(body):
 	if body.is_in_group("items"): 

@@ -1,7 +1,11 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Assets/Characters.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Player.gd" type="Script" id=2]
+[ext_resource path="res://Objects/SFX.gd" type="Script" id=3]
+[ext_resource path="res://Audio/pickupCoin.wav" type="AudioStream" id=4]
+[ext_resource path="res://Audio/jump.wav" type="AudioStream" id=5]
+[ext_resource path="res://Audio/land.wav" type="AudioStream" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -18,10 +22,6 @@ region = Rect2( 32, 0, 16, 16 )
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
 region = Rect2( 48, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 1 )
-region = Rect2( 32, 16, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
@@ -59,16 +59,15 @@ region = Rect2( 112, 16, 16, 16 )
 atlas = ExtResource( 1 )
 region = Rect2( 16, 16, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 16, 16, 16 )
+
 [sub_resource type="SpriteFrames" id=13]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "idle",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 15 ) ],
-"loop": true,
-"name": "fall",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
@@ -84,6 +83,11 @@ animations = [ {
 "frames": [ SubResource( 16 ) ],
 "loop": true,
 "name": "rise",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 15 ) ],
+"loop": true,
+"name": "fall",
 "speed": 5.0
 } ]
 
@@ -102,7 +106,8 @@ position = Vector2( 17, -6 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 13 )
-animation = "rise"
+animation = "idle"
+frame = 3
 playing = true
 
 [node name="Collider" type="CollisionShape2D" parent="."]
@@ -110,6 +115,7 @@ visible = false
 shape = SubResource( 14 )
 
 [node name="FloorCast" type="RayCast2D" parent="."]
+visible = false
 enabled = true
 cast_to = Vector2( 0, 10 )
 
@@ -118,6 +124,22 @@ collision_layer = 16
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemArea"]
+visible = false
 shape = SubResource( 17 )
+
+[node name="SFX" type="Node2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="Jump" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 5 )
+volume_db = -10.0
+
+[node name="Land" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 6 )
+volume_db = -10.0
+
+[node name="Coin" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 4 )
+volume_db = -10.0
 
 [connection signal="body_entered" from="ItemArea" to="." method="_on_ItemArea_body_entered"]

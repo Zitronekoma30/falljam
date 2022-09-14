@@ -9,6 +9,8 @@ onready var cursor = $Cursor
 export var player_path: NodePath
 onready var player = get_node(player_path)
 
+var current_interactors := []
+
 var grid_size = 16
 
 onready var inv_size = ui_slots.size()
@@ -23,6 +25,10 @@ func _ready():
 	player.connect("got_item", self, "add_item")
 
 func _process(delta):
+	input()
+	position_cursor()
+
+func input():
 	if Input.is_action_just_released("scroll_down"):
 		ui_slots[selected].set_selected(false)
 		selected += 1
@@ -38,13 +44,15 @@ func _process(delta):
 	if Input.is_action_just_pressed("drop"):
 		if current_slot != null:
 			var new_item = item_scene.instance()
-			new_item.set_item(current_slot.name)
+			new_item.set_item(current_slot, false)
 			get_tree().get_root().add_child(new_item)
 			new_item.global_position = player.item_spawn_pos.global_position
 			new_item.anim.play_backwards("pickup")
 			inventory[selected] = null
 			ui_slots[selected].set_item(null)
-	position_cursor()
+	if Input.is_action_just_pressed("interact"):
+		for interactor in current_interactors:
+			interactor.interact(inventory[selected])
 
 func position_cursor():
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -58,3 +66,15 @@ func add_item(item):
 			item.pickup()
 			ui_slots[i].set_item(inventory[i])
 			break
+		elif inventory[i] != null:
+			if inventory[i].name == item.item_instance.name and inventory[i].stack + item.item_instance.stack <= inventory[i].max_stack:
+				inventory[i].stack += item.item_instance.stack
+				item.pickup()
+				break
+
+
+func _on_Cursor_area_entered(area):
+	if area.is_in_group("interactable"): current_interactors.append(area)
+
+func _on_Cursor_area_exited(area):
+	if area.is_in_group("interactable"): current_interactors.remove(current_interactors.find(area))

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Resources/MonsterTemplate.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+species = "squirtle"
+index = 3
+type1 = "water"
+type2 = "water"
+base_hp = 100
