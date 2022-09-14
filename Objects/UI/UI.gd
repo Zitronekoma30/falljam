@@ -44,12 +44,14 @@ func input():
 	if Input.is_action_just_pressed("drop"):
 		if current_slot != null:
 			var new_item = item_scene.instance()
-			new_item.set_item(current_slot, false)
+			new_item.set_item(current_slot.name)
 			get_tree().get_root().add_child(new_item)
 			new_item.global_position = player.item_spawn_pos.global_position
 			new_item.anim.play_backwards("pickup")
-			inventory[selected] = null
-			ui_slots[selected].set_item(null)
+			current_slot.stack -= 1
+			if current_slot.stack <= 0:
+				inventory[selected] = null
+				ui_slots[selected].set_item(null)
 	if Input.is_action_just_pressed("interact"):
 		for interactor in current_interactors:
 			interactor.interact(inventory[selected])
