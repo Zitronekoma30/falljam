@@ -1,12 +1,14 @@
 extends Resource
 class_name Item
 
-var name: String
-var sprite: Texture
-var value: int
+export var name: String
+export var sprite: Texture
+export var value: int
+export var sellable: bool
 
-var max_stack: int
-var stack: int
+export var max_stack: int
+export var stack: int
 
 func _init():
-	print("initialized item: " + name)
+	#print("initialized item: " + name)
+	pass

@@ -8,7 +8,7 @@
 [ext_resource path="res://Audio/FallJam.mp3" type="AudioStream" id=6]
 [ext_resource path="res://Assets/Leaf.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Wind.png" type="Texture" id=8]
-[ext_resource path="res://Objects/Interactables/TestObject.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Objects/Interactables/SeedExtractor.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -131,23 +131,31 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="TestObject" parent="." instance=ExtResource( 9 )]
-position = Vector2( 264, 200 )
-
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 155, 145 )
-
-[node name="Item2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 94, 57 )
-item_name = "hoe"
 
 [node name="Item" parent="." instance=ExtResource( 5 )]
 position = Vector2( 224, 57 )
 item_name = "eggplant"
 
+[node name="Item2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 224, 57 )
+item_name = "eggplant"
+
+[node name="Item5" parent="." instance=ExtResource( 5 )]
+position = Vector2( 109, 57 )
+item_name = "hoe"
+
+[node name="Item4" parent="." instance=ExtResource( 5 )]
+position = Vector2( 224, 57 )
+item_name = "eggplant"
+
 [node name="Item3" parent="." instance=ExtResource( 5 )]
 position = Vector2( 252, 57 )
-item_name = "eggplant"
+item_name = "pumpkin"
+
+[node name="SeedExtractor" parent="." instance=ExtResource( 9 )]
+position = Vector2( 312, 200 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )

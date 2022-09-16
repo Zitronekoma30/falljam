@@ -7,5 +7,9 @@ func _ready():
 
 func interact(item):
 	if item != null:
-		print("YOU INTERACTED WITH ME " + item.name)
-	print("no item")
+		interaction_item(item)
+	interaction_null()
+	
+#virtual
+func interaction_item(item): pass
+func interaction_null(): pass

@@ -8,6 +8,8 @@ var i_sprite = preload("res://Assets/Slot.png")
 onready var item_tex = $Item
 onready var stack = $StackCount
 
+signal item_gone
+
 var item
 
 func _ready():
@@ -16,6 +18,9 @@ func _ready():
 func _process(delta):
 	if item != null:
 		stack.text = str(item.stack)
+		if item.stack <= 0: 
+			emit_signal("item_gone", self)
+			set_item(null)
 
 func set_selected(new: bool):
 	if new: texture = a_sprite

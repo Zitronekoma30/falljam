@@ -38,12 +38,26 @@ func create_item(_item_name):
 			item.value = 0
 			item.max_stack = 1
 			item.stack = 1
-		_: return null
+		"pumpkin_seeds":
+			item.sprite = load("res://Assets/pumpkinseed.png")
+			item.value = 0
+			item.max_stack = 30
+			item.stack = 1
+		"eggplant_seeds":
+			item.sprite = load("res://Assets/eggplantseed.png")
+			item.value = 0
+			item.max_stack = 30
+			item.stack = 1
+		_: 
+			print("null")
+			return null
 	item.name = _item_name
 	return item
 
 func set_item(_item, new: bool = true):
+	print("making new item " + _item)
 	yield(self, "ready")
+	print("yielded")
 	if new:
 		item_instance = create_item(_item)
 		if item_instance != null: sprite.texture = item_instance.sprite

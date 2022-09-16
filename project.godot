@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "MonsterTemplate",
 "language": "GDScript",
-"path": "res://Resources/MonsterTemplate.gd"
+"path": "res://Resources/Monsters/MonsterTemplate.gd"
 } ]
 _global_script_class_icons={
 "Item": "",

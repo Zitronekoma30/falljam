@@ -20,6 +20,8 @@ var selected = 0
 
 func _ready():
 	ui_slots[selected].set_selected(true)
+	for slot in ui_slots:
+		slot.connect("item_gone", self, "_on_item_gone")
 	for i in range(inv_size):
 		inventory.append(null)
 	player.connect("got_item", self, "add_item")
@@ -27,6 +29,7 @@ func _ready():
 func _process(delta):
 	input()
 	position_cursor()
+
 
 func input():
 	if Input.is_action_just_released("scroll_down"):
@@ -39,7 +42,8 @@ func input():
 		selected -= 1
 		if selected < 0: selected = inv_size-1
 		ui_slots[selected].set_selected(true)
-		
+	
+	#dropping
 	var current_slot = inventory[selected]
 	if Input.is_action_just_pressed("drop"):
 		if current_slot != null:
@@ -63,16 +67,18 @@ func position_cursor():
 
 func add_item(item):
 	for i in range(inventory.size()):
+		if inventory[i] != null:
+			if inventory[i].name == item.item_instance.name and inventory[i].stack + item.item_instance.stack <= inventory[i].max_stack:
+				inventory[i].stack += item.item_instance.stack
+				item.pickup()
+				return
+	for i in range(inventory.size()):
 		if inventory[i] == null: 
 			inventory[i] = item.item_instance
 			item.pickup()
 			ui_slots[i].set_item(inventory[i])
 			break
-		elif inventory[i] != null:
-			if inventory[i].name == item.item_instance.name and inventory[i].stack + item.item_instance.stack <= inventory[i].max_stack:
-				inventory[i].stack += item.item_instance.stack
-				item.pickup()
-				break
+
 
 
 func _on_Cursor_area_entered(area):
@@ -80,3 +86,6 @@ func _on_Cursor_area_entered(area):
 
 func _on_Cursor_area_exited(area):
 	if area.is_in_group("interactable"): current_interactors.remove(current_interactors.find(area))
+
+func _on_item_gone(slot):
+	inventory[ui_slots.find(slot)] = null
