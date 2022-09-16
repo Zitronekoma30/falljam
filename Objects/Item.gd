@@ -19,6 +19,7 @@ func _ready():
 	add_to_group("items")
 	item_instance = create_item(item_name)
 	if item_instance != null: sprite.texture = item_instance.sprite
+	anim.play("spawn")
 
 func create_item(_item_name):
 	var item = item_path.new()
@@ -55,9 +56,7 @@ func create_item(_item_name):
 	return item
 
 func set_item(_item, new: bool = true):
-	print("making new item " + _item)
 	yield(self, "ready")
-	print("yielded")
 	if new:
 		item_instance = create_item(_item)
 		if item_instance != null: sprite.texture = item_instance.sprite

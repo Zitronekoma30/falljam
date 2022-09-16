@@ -131,6 +131,9 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="SeedExtractor" parent="." instance=ExtResource( 9 )]
+position = Vector2( 312, 200 )
+
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 155, 145 )
 
@@ -153,9 +156,6 @@ item_name = "eggplant"
 [node name="Item3" parent="." instance=ExtResource( 5 )]
 position = Vector2( 252, 57 )
 item_name = "pumpkin"
-
-[node name="SeedExtractor" parent="." instance=ExtResource( 9 )]
-position = Vector2( 312, 200 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )

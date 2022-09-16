@@ -51,7 +51,6 @@ func input():
 			new_item.set_item(current_slot.name)
 			get_tree().get_root().add_child(new_item)
 			new_item.global_position = player.item_spawn_pos.global_position
-			new_item.anim.play_backwards("pickup")
 			current_slot.stack -= 1
 			if current_slot.stack <= 0:
 				inventory[selected] = null
