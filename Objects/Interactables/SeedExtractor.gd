@@ -22,5 +22,6 @@ func interaction_item(item):
 		get_tree().get_root().add_child(new_item)
 		new_item.global_position = global_position
 		filled = false
+		anim.play("RESET")
 		
 func interaction_null(): pass
